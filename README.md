@@ -23,13 +23,13 @@ API должно содержать 4 метода:
 
 ## Ссылки на 4 реализованных метода:
 
-- создание тестовых товаров: [goods/create-test-pack](http://market.8ffd246e-5d74-49a5-8696-e92eff606a60.pub.cloud.scaleway.com/goods/create-test-pack)
+- создание тестовых товаров: [goods/create-test-pack](http://8ffd246e-5d74-49a5-8696-e92eff606a60.pub.cloud.scaleway.com/goods/create-test-pack)
 
-- вывести все товары: [goods/list-all](http://market.8ffd246e-5d74-49a5-8696-e92eff606a60.pub.cloud.scaleway.com/goods/list-all)
-- вариант с пейджером: [goods/list-all?page=1](http://market.8ffd246e-5d74-49a5-8696-e92eff606a60.pub.cloud.scaleway.com/goods/list-all?page=1)
+- вывести все товары: [goods/list-all](http://8ffd246e-5d74-49a5-8696-e92eff606a60.pub.cloud.scaleway.com/goods/list-all)
+- вариант с пейджером: [goods/list-all?page=1](http://8ffd246e-5d74-49a5-8696-e92eff606a60.pub.cloud.scaleway.com/goods/list-all?page=1)
 
-- создать заказ:  [orders/create?ids=1,2,3](http://market.8ffd246e-5d74-49a5-8696-e92eff606a60.pub.cloud.scaleway.com/orders/create?ids=1,2,3)
-- оплатить заказ: [orders/pay/1/123.45](http://market.8ffd246e-5d74-49a5-8696-e92eff606a60.pub.cloud.scaleway.com/orders/pay/1/123.45)
+- создать заказ:  [orders/create?ids=1,2,3](http://8ffd246e-5d74-49a5-8696-e92eff606a60.pub.cloud.scaleway.com/orders/create?ids=1,2,3)
+- оплатить заказ: [orders/pay/1/123.45](http://8ffd246e-5d74-49a5-8696-e92eff606a60.pub.cloud.scaleway.com/orders/pay/1/123.45)
 
 
 
