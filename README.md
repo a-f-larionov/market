@@ -1,8 +1,7 @@
-# market-test-1
+# "Необходимо написать упрощённое REST API."
 
-Тестовое задание: Необходимо написать упрощённое REST API.
 
-Ссылки на 4 метода:
+## Ссылки на 4 реализованных метода:
 
 - создание тестовых товаров: [goods/create-test-pack](http://market.8ffd246e-5d74-49a5-8696-e92eff606a60.pub.cloud.scaleway.com/goods/create-test-pack)
 
@@ -14,7 +13,7 @@
 
 
 
-Описание :
+## Описание:
 
 Простой фреймворк с применением шаблонов:
 MVC, Singleton, Repository, Entity, Controller, Dependency Injection, Router.
