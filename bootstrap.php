@@ -20,6 +20,13 @@ function app()
 }
 
 /**
+ * Подключаем пакет PHPDotEnv
+ * @see https://github.com/vlucas/phpdotenv
+ */
+$dotenv = \Dotenv\Dotenv::create(__DIR__);
+$dotenv->load();
+
+/**
  * Простейшая версия конфигурации.
  * @param null|string $name
  * @return mixed|null

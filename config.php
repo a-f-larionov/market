@@ -8,11 +8,11 @@
 return [
     'entityManager' => [
         'driver' => 'pdo_mysql',
-        'host' => 'localhost',
-        'user' => 'market',
-        'password' => 'market',
-        'dbname' => 'market',
-        'echoSQLLog' => false,
+        'host' => getenv('DB_HOST', 'localhost'),
+        'user' => getenv('DB_USER'),
+        'password' => getenv('DB_PASSWORD'),
+        'dbname' => getenv('DB_NAME'),
+        'echoSQLLog' => getenv('ECHO_SQL_LOG', false),
     ],
 
     /**
@@ -20,6 +20,7 @@ return [
      * Все они будут доступны из любой части кода так:
      * app()->get('router')
      * app()->get(\Symfony\Component\Routing\Router:class);
+     * Классы в значении массива, должны реализовать интерфейс ComponentInterface
      */
     'components' => [
         'router' => \App\ComponentsProviders\RouterProvider::class,
@@ -28,5 +29,6 @@ return [
         'request' => \App\ComponentsProviders\RequestProvider::class,
 
         'testGoodsProvider' => \App\ComponentsProviders\TestGoodsProvider::class,
+        'ordersManager' => \App\ComponentsProviders\OrdersManagerProvider::class,
     ],
 ];

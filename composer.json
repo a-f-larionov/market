@@ -10,7 +10,8 @@
     "doctrine/orm": "^2.6",
     "symfony/dependency-injection": "^4.3",
     "php-di/php-di": "^6.0",
-    "guzzlehttp/guzzle": "^6.4"
+    "guzzlehttp/guzzle": "^6.4",
+    "vlucas/phpdotenv": "^3.6"
   },
   "license": "MIT",
   "authors": [

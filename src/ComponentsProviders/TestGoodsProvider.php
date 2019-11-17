@@ -3,7 +3,7 @@
 namespace App\ComponentsProviders;
 
 /**
- * Создает компонент провайдера тестовых данных товаров.
+ * Компонент предоставления тестовых данных для товаров.
  * Class KernelProvider
  * @package App\Components
  */

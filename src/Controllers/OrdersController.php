@@ -3,9 +3,9 @@
 namespace App\Controllers;
 
 use App\Api\YaRu\Client;
+use App\Managers\OrdersManager;
 use App\Models\Good;
 use App\Models\Order;
-use App\Models\OrderItem;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +23,7 @@ class OrdersController extends BaseController
      * @param EntityManager $entityManager
      * @return Response
      */
-    public function create(Request $request, EntityManager $entityManager): Response
+    public function create(Request $request, EntityManager $entityManager, OrdersManager $ordersManager): Response
     {
         /** @var int[] id запрашиваемых товаров $requestIds */
         $requestIds = $request->get('ids');
@@ -62,37 +62,13 @@ class OrdersController extends BaseController
         }
 
         // валидация пройдена, можно создавать заказ.
-        $order = $this->createOrder($goods, $entityManager);
+        $order = $ordersManager->createOrder($foundIds);
 
         $entityManager->flush();
 
         $entityManager->commit();
 
         return $this->responseJSON($order->mapToArray());
-    }
-
-    /**
-     * Создать заказ.
-     * @param array $goods
-     * @param EntityManager $entityManager
-     * @return Order
-     */
-    private function createOrder(array $goods, EntityManager $entityManager): Order
-    {
-        $order = new Order();
-        // запишем заказ в БД, что бы получить id заказа.
-        $entityManager->persist($order);
-        $entityManager->flush();
-
-        // создадим позиции заказа
-        foreach ($goods as $good) {
-            $orderItem = new OrderItem();
-            $orderItem->setOrder($order);
-            $orderItem->setGood($good);
-            $entityManager->persist($orderItem);
-        }
-
-        return $order;
     }
 
     /**
