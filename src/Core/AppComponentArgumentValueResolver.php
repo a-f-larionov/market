@@ -17,12 +17,11 @@ class AppComponentArgumentValueResolver implements ArgumentValueResolverInterfac
 
     /**
      * {@inheritdoc}
+     * @return bool
      */
-    public function supports(Request $request, ArgumentMetadata $argument)
+    public function supports(Request $request, ArgumentMetadata $argument): bool
     {
-        if (app()->get($argument->getType())) {
-            return true;
-        }
+        return (bool)app()->get($argument->getType());
     }
 
     /**
