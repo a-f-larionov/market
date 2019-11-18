@@ -2,6 +2,7 @@
 
 namespace App\ComponentsProviders;
 
+use App\Core\AppComponentInterface;
 use App\Managers\OrdersManager;
 
 /**
@@ -9,7 +10,7 @@ use App\Managers\OrdersManager;
  * Class OrdersManagerProvider
  * @package App\Components
  */
-class OrdersManagerProvider implements ComponentInterface
+class OrdersManagerProvider implements AppComponentInterface
 {
     /**
      * Создает компонент менеджер заказов.

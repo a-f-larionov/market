@@ -2,6 +2,7 @@
 
 namespace App\ComponentsProviders;
 
+use App\Core\AppComponentInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 
@@ -9,7 +10,7 @@ use Doctrine\ORM\Tools\Setup;
  * Создает компонент EntityManager
  * Class EntityManagerProvider
  */
-class EntityManagerProvider implements ComponentInterface
+class EntityManagerProvider implements AppComponentInterface
 {
     /**
      * Возвращает настроенный компонент \Doctrine\ORM\EntityManager

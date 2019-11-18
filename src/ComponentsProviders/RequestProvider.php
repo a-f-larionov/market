@@ -2,6 +2,7 @@
 
 namespace App\ComponentsProviders;
 
+use App\Core\AppComponentInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -10,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
  * Class RequestProvider
  * @package App\Components
  */
-class RequestProvider implements ComponentInterface
+class RequestProvider implements AppComponentInterface
 {
     /**
      * Создает Request из запроса клиента.

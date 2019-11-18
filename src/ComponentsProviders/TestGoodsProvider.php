@@ -2,12 +2,14 @@
 
 namespace App\ComponentsProviders;
 
+use App\Core\AppComponentInterface;
+
 /**
  * Компонент предоставления тестовых данных для товаров.
  * Class KernelProvider
  * @package App\Components
  */
-class TestGoodsProvider implements ComponentInterface
+class TestGoodsProvider implements AppComponentInterface
 {
     /**
      * Создает сам себя(провайдер тестовых данных товаров).

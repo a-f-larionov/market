@@ -110,14 +110,14 @@ class Order
      */
     public function calculateSumm(): float
     {
-        $summ = 0;
+        $sum = 0;
         $items = $this->getOrderItems();
 
         foreach ($items as $item) {
-            $summ += $item->getGood()->getPrice();
+            $sum += $item->getGood()->getPrice();
         }
 
-        return $summ;
+        return $sum;
     }
 
     /**

@@ -12,11 +12,11 @@
  * Тут мы можем получить доступ к компонентам из любой точки кода.
  * app()->get('containerName')->doSomething();
  * @see components.php
- * @return \App\App
+ * @return \App\Core\App
  */
 function app()
 {
-    return \App\App::getInstance();
+    return \App\Core\App::getInstance();
 }
 
 /**

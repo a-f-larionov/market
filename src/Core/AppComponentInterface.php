@@ -1,13 +1,13 @@
 <?php
 
-namespace App\ComponentsProviders;
+namespace App\Core;
 
 /**
  * Интерфейс компонента
  * Interface ComponentInterface
  * @package App\Components
  */
-interface ComponentInterface
+interface AppComponentInterface
 {
     /**
      * Возвращает инстанс компонента.

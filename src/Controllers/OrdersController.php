@@ -98,8 +98,10 @@ class OrdersController extends BaseController
         if (!$order->getOrderItems()->count()) {
             return $this->responseWithFailed("Заказ пуст.");
         }
-
-        if ((float)$sum !== $order->calculateSumm()) {
+        // в сравении цен, используем технику epsilon, т.к. у нас float
+        // @see https://www.php.net/manual/en/language.types.float.php#language.types.float.comparison
+        $epsilon = 0.00001;
+        if (abs($sum - $order->calculateSumm()) > $epsilon) {
             return $this->responseWithFailed("Сумма не соответвует. Ожидалось: `{$order->calculateSumm()}`, передано: {$sum}");
         }
 

@@ -2,6 +2,7 @@
 
 namespace App\ComponentsProviders;
 
+use App\Core\AppComponentInterface;
 use \Symfony\Component\Config\FileLocator;
 use \Symfony\Component\Routing\Loader\PhpFileLoader;
 use \Symfony\Component\Routing\Router;
@@ -11,7 +12,7 @@ use \Symfony\Component\Routing\Router;
  * Class RouterProvider
  * @package App\Components
  */
-class RouterProvider implements ComponentInterface
+class RouterProvider implements AppComponentInterface
 {
     /**
      * Создать роутер прочитать роут файл.
