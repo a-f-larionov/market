@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -41,6 +42,6 @@ class BaseController
      */
     public function responseJSON($data): Response
     {
-        return new Response(json_encode($data), Response::HTTP_OK);
+        return new JsonResponse($data);
     }
 }
