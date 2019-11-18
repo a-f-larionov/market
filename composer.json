@@ -11,7 +11,8 @@
     "php-di/php-di": "^6.0",
     "guzzlehttp/guzzle": "^6.4",
     "vlucas/phpdotenv": "^3.6",
-    "symfony/var-dumper": "^4.3"
+    "symfony/var-dumper": "^4.3",
+    "symfony/http-kernel": "^4.3"
   },
   "license": "MIT",
   "authors": [
