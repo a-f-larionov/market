@@ -33,6 +33,7 @@ class KernelProvider implements AppComponentInterface
         $eventDispatcher->addSubscriber(new RouterListener($router->getMatcher(), new RequestStack()));
 
         $controllerResolver = new ControllerResolver();
+
         $argumentValueResolvers = ArgumentResolver::getDefaultArgumentValueResolvers();
         array_push($argumentValueResolvers, new AppComponentArgumentValueResolver());
         $argumentsResolver = new ArgumentResolver(null, $argumentValueResolvers);
