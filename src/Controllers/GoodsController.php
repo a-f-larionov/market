@@ -50,8 +50,6 @@ class  GoodsController extends BaseController
      */
     public function listAll(int $page, Request $request, EntityManager $entityManager): Response
     {
-        $repository = $entityManager->getRepository(Good::class);
-
         if ($page < 1) {
             return $this->responseWithFailed("Укажите page.");
         }
@@ -59,6 +57,8 @@ class  GoodsController extends BaseController
         $pageSize = 10;
         $page--;
         $offset = $page * ($pageSize);
+
+        $repository = $entityManager->getRepository(Good::class);
         $all = $repository->findBy([], null, $pageSize, $offset);
 
         $all = array_map(function (Good $item) {
