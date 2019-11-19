@@ -8,7 +8,7 @@ namespace App\Api\YaRu;
  * Class Client
  * @package App\Api\YaRu
  */
-class Client
+class YandexClient
 {
     /**
      * URL запроса проверки платежа.
