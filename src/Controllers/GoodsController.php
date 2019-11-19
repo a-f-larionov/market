@@ -43,21 +43,23 @@ class  GoodsController extends BaseController
 
     /**
      * Возвращает список всех товаров.
+     * @param int $page номер страницы, начиная с 1-цы
+     * @param Request $request
      * @param EntityManager $entityManager
      * @return Response
      */
-    public function listAll(Request $request, EntityManager $entityManager): Response
+    public function listAll(int $page, Request $request, EntityManager $entityManager): Response
     {
         $repository = $entityManager->getRepository(Good::class);
 
-        $page = $request->get('page');
-        if ($page !== null) {
-            $pageSize = 10;
-            $offset = $page * $pageSize;
-            $all = $repository->findBy([], null, $pageSize, $offset);
-        } else {
-            $all = $repository->findAll();
+        if ($page < 1) {
+            return $this->responseWithFailed("Укажите page.");
         }
+
+        $pageSize = 10;
+        $page--;
+        $offset = $page * ($pageSize);
+        $all = $repository->findBy([], null, $pageSize, $offset);
 
         $all = array_map(function (Good $item) {
             return $item->mapToArray();

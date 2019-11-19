@@ -12,7 +12,7 @@ return function (\Symfony\Component\Routing\Loader\Configurator\RoutingConfigura
     $routes->add('/goods/create-test-pack', '/goods/create-test-pack')
         ->controller([GoodsController::class, 'createTestPack']);
 
-    $routes->add('/goods/list-all', '/goods/list-all')
+    $routes->add('/goods/list-all', '/goods/list-all/{page}')
         ->controller([GoodsController::class, 'listAll']);
 
     // это должен быть POST, для ручного тестирования используем GET

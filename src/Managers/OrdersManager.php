@@ -28,9 +28,12 @@ class OrdersManager
         $entityManager->persist($order);
         $entityManager->flush();
 
+        $goodsRepository = $entityManager->getRepository(Good::class);
+        /** @var Good[] $goods */
+        $goods = $goodsRepository->findById($goodIds);
+
         // создадим позиции заказа
-        foreach ($goodIds as $id) {
-            $good = $entityManager->find(Good::class, $id);
+        foreach ($goods as $good) {
             $orderItem = new OrderItem();
             $orderItem->setOrder($order);
             $orderItem->setGood($good);
