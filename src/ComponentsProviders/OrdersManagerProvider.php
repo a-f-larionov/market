@@ -18,6 +18,6 @@ class OrdersManagerProvider implements AppComponentInterface
      */
     static public function getComponent(): OrdersManager
     {
-        return new OrdersManager();
+        return app()->make(OrdersManager::class);
     }
 }

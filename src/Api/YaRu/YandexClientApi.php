@@ -2,18 +2,30 @@
 
 namespace App\Api\YaRu;
 
+use GuzzleHttp\Client;
+
 /**
  * Клиент платежной системы YaRu.
  * Это псевдосистема, если https://ya.ru ответил 200 - платеж считается проведенным.
  * Class Client
  * @package App\Api\YaRu
  */
-class YandexClient
+class YandexClientApi
 {
+    /**
+     * @var Client
+     */
+    private $httpClient = null;
+
     /**
      * URL запроса проверки платежа.
      */
     private const URL_FOR_CHECK_ORDER_PAYED = 'https://ya.ru';
+
+    public function __construct(Client $httpClient)
+    {
+        $this->httpClient = $httpClient;
+    }
 
     /**
      * Проверяет оплачен ли заказ.
@@ -23,16 +35,14 @@ class YandexClient
      */
     public function checkPayed(int $orderId, float $sum): bool
     {
-        $client = new \GuzzleHttp\Client();
-
         $query = \GuzzleHttp\Psr7\build_query([
             'orderId' => $orderId,
-            'summ' => $sum
+            'sum' => $sum
         ]);
 
         $uri = self::URL_FOR_CHECK_ORDER_PAYED . '/?' . $query;
 
-        $response = $client->request('get', $uri);
+        $response = $this->httpClient->request('get', $uri);
 
         return $response->getStatusCode() === 200;
     }

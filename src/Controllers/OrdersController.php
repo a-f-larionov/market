@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Api\YaRu\YandexClient;
+use App\Api\YaRu\YandexClientApi;
 use App\Managers\OrdersManager;
 use App\Models\Good;
 use App\Models\Order;
@@ -76,9 +76,10 @@ class OrdersController extends BaseController
      * @param int $orderId id заказа
      * @param float $sum сумма, должна соответствоать сумме заказа.
      * @param EntityManager $entityManager
+     * @param YandexClientApi $yandexClient
      * @return Response
      */
-    public function pay(int $orderId, float $sum, EntityManager $entityManager): Response
+    public function pay(int $orderId, float $sum, EntityManager $entityManager, YandexClientApi $yandexClient): Response
     {
         if (!$orderId) {
             return $this->responseWithFailed("Нужно передать `id`");
@@ -105,9 +106,7 @@ class OrdersController extends BaseController
             return $this->responseWithFailed("Сумма не соответвует. Ожидалось: `{$order->calculateSumm()}`, передано: {$sum}");
         }
 
-        $client = new YandexClient();
-
-        if (!$client->checkPayed($orderId, $sum)) {
+        if (!$yandexClient->checkPayed($orderId, $sum)) {
             return $this->responseWithFailed("YaRu отказал в проведении платежа. Попробуйте позже.");
         }
 
