@@ -6,8 +6,8 @@ use App\Models\Good;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Doctrine\ORM\EntityManager;
-use Exception;
 use Throwable;
+use App\Exceptions\UserRequestErrorException;
 
 /**
  * Менеджер заказов.
@@ -58,7 +58,7 @@ class OrdersManager
             $notFoundIds = array_diff($goodIds, $foundIds);
 
             if (count($notFoundIds) > 0) {
-                throw new Exception(
+                throw new UserRequestErrorException(
                     "Запрашиваемые товары с ids = `" . join(',',
                         $notFoundIds) . "` не найдены."
                 );

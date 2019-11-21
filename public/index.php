@@ -1,7 +1,10 @@
 <?php
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\HttpKernel;
+use App\Exceptions\UserRequestErrorException;
 
 /**
  * Этот файл - точка входа.
@@ -28,6 +31,14 @@ $kernel = app()->get('kernel');
 
 $request = Request::createFromGlobals();
 
-$response = $kernel->handle($request);
+try {
+    $response = $kernel->handle($request);
+} catch (NotFoundHttpException $e) {
+    $response = new Response("", Response::HTTP_NOT_FOUND);
+} catch (UserRequestErrorException $e) {
+    $response = new Response($e->getMessage(), Response::HTTP_BAD_REQUEST);
+} catch (Exception $e) {
+    throw $e;
+}
 
 $response->send();
