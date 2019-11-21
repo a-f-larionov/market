@@ -26,6 +26,8 @@ class GoodsManager
      * @param string $name название товара
      * @param float $price цена товара
      * @return Good
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function create(string $name, float $price): Good
     {

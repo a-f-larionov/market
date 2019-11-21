@@ -3,6 +3,7 @@
 namespace App\Api\YaRu;
 
 use GuzzleHttp\Client;
+use function GuzzleHttp\Psr7\build_query;
 
 /**
  * Клиент платежной системы YaRu.
@@ -32,10 +33,11 @@ class YandexClientApi
      * @param int $orderId id заказа
      * @param float $sum сумма заказа
      * @return bool true - оплачен, false - не оплачен.
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function checkPayed(int $orderId, float $sum): bool
     {
-        $query = \GuzzleHttp\Psr7\build_query([
+        $query = build_query([
             'orderId' => $orderId,
             'sum' => $sum
         ]);

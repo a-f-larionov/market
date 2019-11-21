@@ -16,7 +16,7 @@ class OrdersManager
     /**
      * @var EntityManager
      */
-    private $entityManager;
+    private EntityManager $entityManager;
 
     /**
      * OrdersManager constructor.
@@ -31,6 +31,8 @@ class OrdersManager
      * Создать заказ.
      * @param array $goodIds id товаров
      * @return Order
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function createOrder(array $goodIds): Order
     {

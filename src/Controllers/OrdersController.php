@@ -91,6 +91,7 @@ class OrdersController extends BaseController
      * @throws \Doctrine\ORM\ORMException
      * @throws \Doctrine\ORM\OptimisticLockException
      * @throws \Doctrine\ORM\TransactionRequiredException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function pay(int $orderId, float $sum, EntityManager $entityManager, YandexClientApi $yandexClient): Response
     {

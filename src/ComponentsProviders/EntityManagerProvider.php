@@ -5,6 +5,7 @@ namespace App\ComponentsProviders;
 use App\Core\AppComponentInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
+use Doctrine\DBAL\Logging\EchoSQLLogger;
 
 /**
  * Создает компонент EntityManager
@@ -16,6 +17,7 @@ class EntityManagerProvider implements AppComponentInterface
      * Возвращает настроенный компонент \Doctrine\ORM\EntityManager
      * @see https://www.doctrine-project.org/projects/doctrine-orm/en/current/tutorials/getting-started.html
      * @return EntityManager
+     * @throws \Doctrine\ORM\ORMException
      */
     static public function getComponent(): EntityManager
     {
@@ -43,7 +45,7 @@ class EntityManagerProvider implements AppComponentInterface
 
         // вывод SQL запросов для дебага и профилинга
         if ($conn['echoSQLLog']) {
-            $sqlLogger = new \Doctrine\DBAL\Logging\EchoSQLLogger();
+            $sqlLogger = new EchoSQLLogger();
             $entityManager->getConfiguration()->setSQLLogger($sqlLogger);
         }
         return $entityManager;

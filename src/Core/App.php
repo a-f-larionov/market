@@ -2,6 +2,11 @@
 
 namespace App\Core;
 
+use DI\Container;
+use DI\Definition\Source\MutableDefinitionSource;
+use DI\Proxy\ProxyFactory;
+use Psr\Container\ContainerInterface;
+
 /**
  * Синглтон контейнера приложения.
  * @see http://php-di.org/
@@ -9,7 +14,7 @@ namespace App\Core;
  * Class App
  * @package App
  */
-class App extends \DI\Container
+class App extends Container
 {
     /**
      * Экземпляр приложения.
@@ -32,14 +37,14 @@ class App extends \DI\Container
     /**
      * Singleton шаблон ограничивает конструктор
      * App constructor.
-     * @param \DI\Definition\Source\MutableDefinitionSource|null $definitionSource
-     * @param \DI\Proxy\ProxyFactory|null $proxyFactory
-     * @param \Psr\Container\ContainerInterface|null $wrapperContainer
+     * @param MutableDefinitionSource|null $definitionSource
+     * @param ProxyFactory|null $proxyFactory
+     * @param ContainerInterface|null $wrapperContainer
      */
     private function __construct(
-        \DI\Definition\Source\MutableDefinitionSource $definitionSource = null,
-        \DI\Proxy\ProxyFactory $proxyFactory = null,
-        \Psr\Container\ContainerInterface $wrapperContainer = null
+        MutableDefinitionSource $definitionSource = null,
+        ProxyFactory $proxyFactory = null,
+        ContainerInterface $wrapperContainer = null
     ) {
         parent::__construct($definitionSource, $proxyFactory, $wrapperContainer);
     }
