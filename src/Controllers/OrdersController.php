@@ -81,7 +81,7 @@ class OrdersController extends BaseController
      */
     public function pay(int $orderId, float $sum, EntityManager $entityManager, YandexClientApi $yandexClient): Response
     {
-        if (!$orderId) {
+        if ($orderId < 1) {
             return $this->responseWithFailed("Нужно передать `id`");
         }
 

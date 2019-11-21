@@ -22,7 +22,7 @@ require_once __DIR__ . '/../bootstrap.php';
  *  Затем отправим ответ клиенту.
  */
 
-/** @var \App\Kernel $kernel */
+/** @var \Symfony\Component\HttpKernel\HttpKernel $kernel */
 $kernel = app()->get('kernel');
 
 $request = Request::createFromGlobals();

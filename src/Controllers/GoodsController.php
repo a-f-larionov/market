@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\ComponentsProviders\TestGoodsProvider;
 use App\Models\Good;
 use Doctrine\ORM\EntityManager;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -44,11 +43,10 @@ class  GoodsController extends BaseController
     /**
      * Возвращает список всех товаров.
      * @param int $page номер страницы, начиная с 1-цы
-     * @param Request $request
      * @param EntityManager $entityManager
      * @return Response
      */
-    public function listAll(int $page, Request $request, EntityManager $entityManager): Response
+    public function listAll(int $page, EntityManager $entityManager): Response
     {
         if ($page < 1) {
             return $this->responseWithFailed("Укажите page.");

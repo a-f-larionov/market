@@ -14,21 +14,32 @@ use Doctrine\ORM\EntityManager;
 class OrdersManager
 {
     /**
+     * @var EntityManager
+     */
+    private $entityManager;
+
+    /**
+     * OrdersManager constructor.
+     * @param EntityManager $entityManager
+     */
+    public function __construct(EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+    /**
      * Создать заказ.
      * @param array $goodIds id товаров
      * @return Order
      */
     public function createOrder(array $goodIds): Order
     {
-        /** @var EntityManager $entityManager */
-        $entityManager = app()->get('entityManager');
-
         $order = new Order();
         // запишем заказ в БД, что бы получить id заказа.
-        $entityManager->persist($order);
-        $entityManager->flush();
+        $this->entityManager->persist($order);
+        $this->entityManager->flush();
 
-        $goodsRepository = $entityManager->getRepository(Good::class);
+        $goodsRepository = $this->entityManager->getRepository(Good::class);
         /** @var Good[] $goods */
         $goods = $goodsRepository->findById($goodIds);
 
@@ -37,7 +48,7 @@ class OrdersManager
             $orderItem = new OrderItem();
             $orderItem->setOrder($order);
             $orderItem->setGood($good);
-            $entityManager->persist($orderItem);
+            $this->entityManager->persist($orderItem);
         }
 
         return $order;
