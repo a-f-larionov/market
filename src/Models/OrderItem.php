@@ -25,7 +25,7 @@ class OrderItem
      * @var int id заказа.
      * @ORM\Column(type="integer")
      */
-    private int $orderId;
+    private ?int $orderId = null;
 
     /**
      * @var Order Заказ
@@ -38,7 +38,7 @@ class OrderItem
      * @var int id товара
      * @ORM\Column(type="integer")
      */
-    protected int $goodId;
+    protected ?int $goodId = null;
 
     /**
      * @var Good Товар

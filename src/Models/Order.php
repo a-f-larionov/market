@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
 
@@ -39,10 +41,10 @@ class Order
 
     /**
      * Позиции заказа
-     * @var PersistentCollection|OrderItem[]
+     * @var Collection|OrderItem[]
      * @ORM\OneToMany(targetEntity="\App\Models\OrderItem", mappedBy="order")
      */
-    private PersistentCollection $orderItems;
+    private ?Collection $orderItems = null;
 
     /**
      * Order constructor.
@@ -50,7 +52,7 @@ class Order
      */
     public function __construct()
     {
-        $this->orderItems = new PersistentCollection;
+        $this->orderItems = new ArrayCollection();
     }
 
     /**

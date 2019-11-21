@@ -28,7 +28,7 @@ class App extends Container
      */
     static public function getInstance(): self
     {
-        if (!self::$instance) {
+        if (!isset(self::$instance)) {
             self::$instance = new self;
         }
         return self::$instance;
