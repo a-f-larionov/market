@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\ComponentsProviders\TestGoodsProvider;
+use App\Managers\GoodsManager;
 use App\Models\Good;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,23 +27,26 @@ class  GoodsController extends BaseController
 
     /**
      * Создает self::TEST_PACK_SIZE тестовых товаров со случайными названиями и ценами.
-     * @param EntityManager $entityManager
+     * @param GoodsManager $goodsManager
      * @param TestGoodsProvider $testDataProvider
+     * @param EntityManager $entityManager
      * @return Response
      */
-    public function createTestPack(EntityManager $entityManager, TestGoodsProvider $testDataProvider): Response
-    {
+    public function createTestPack(
+        GoodsManager $goodsManager,
+        TestGoodsProvider $testDataProvider,
+        EntityManager $entityManager
+    ): Response {
+
         for ($i = 0; $i < self::TEST_PACK_SIZE; $i++) {
 
-            $good = new Good();
-            $good->setName($testDataProvider->getName());
-            $good->setPrice($testDataProvider->getPrice());
-
-            $entityManager->persist($good);
-            $entityManager->flush();
+            $goodsManager->create(
+                $testDataProvider->getName(),
+                $testDataProvider->getPrice()
+            );
         }
 
-        return $this->responseWithSuccess("Товаров " . self::TEST_PACK_SIZE . " создано.");
+        return $this->responseWithSuccess("Выполненна попытка создать " . self::TEST_PACK_SIZE . " товаров.");
     }
 
     /**

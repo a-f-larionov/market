@@ -3,21 +3,21 @@
 namespace App\ComponentsProviders;
 
 use App\Core\AppComponentInterface;
-use App\Managers\OrdersManager;
+use App\Managers\GoodsManager;
 
 /**
  * Создает компонент менеджер заказов.
- * Class OrdersManagerProvider
+ * Class GoodsManagerProvider
  * @package App\Components
  */
-class OrdersManagerProvider implements AppComponentInterface
+class GoodsManagerProvider implements AppComponentInterface
 {
     /**
      * Создает компонент менеджер заказов.
-     * @return OrdersManager
+     * @return GoodsManager
      */
-    static public function getComponent(): OrdersManager
+    static public function getComponent(): GoodsManager
     {
-        return app()->make(OrdersManager::class);
+        return app()->make(GoodsManager::class);
     }
 }

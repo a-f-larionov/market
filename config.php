@@ -30,6 +30,8 @@ return [
 
         'testGoodsProvider' => \App\ComponentsProviders\TestGoodsProvider::class,
         'ordersManager' => \App\ComponentsProviders\OrdersManagerProvider::class,
+        'goodsManager' => \App\ComponentsProviders\GoodsManagerProvider::class,
+
         'yandexClient' => \App\ComponentsProviders\YandexClientAPIProvider::class,
     ],
 ];
