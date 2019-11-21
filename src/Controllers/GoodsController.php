@@ -15,6 +15,11 @@ use Symfony\Component\HttpFoundation\Response;
 class  GoodsController extends BaseController
 {
     /**
+     * Размер страницы списка товаров.
+     */
+    private const GOODS_LIST_PAGE_SIZE = 100;
+
+    /**
      * Размер тестового пака товара.
      */
     private const  TEST_PACK_SIZE = 20;
@@ -52,12 +57,11 @@ class  GoodsController extends BaseController
             return $this->responseWithFailed("Укажите page.");
         }
 
-        $pageSize = 10;
         $page--;
-        $offset = $page * ($pageSize);
+        $offset = $page * (self::GOODS_LIST_PAGE_SIZE);
 
         $repository = $entityManager->getRepository(Good::class);
-        $all = $repository->findBy([], null, $pageSize, $offset);
+        $all = $repository->findBy([], null, self::GOODS_LIST_PAGE_SIZE, $offset);
 
         $all = array_map(function (Good $item) {
             return $item->mapToArray();
