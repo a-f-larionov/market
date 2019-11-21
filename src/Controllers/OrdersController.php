@@ -7,6 +7,10 @@ use App\Managers\OrdersManager;
 use App\Models\Good;
 use App\Models\Order;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
+use Doctrine\ORM\TransactionRequiredException;
+use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -23,8 +27,8 @@ class OrdersController extends BaseController
      * @param EntityManager $entityManager
      * @param OrdersManager $ordersManager
      * @return Response
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function create(Request $request, EntityManager $entityManager, OrdersManager $ordersManager): Response
     {
@@ -88,10 +92,10 @@ class OrdersController extends BaseController
      * @param EntityManager $entityManager
      * @param YandexClientApi $yandexClient
      * @return Response
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
-     * @throws \Doctrine\ORM\TransactionRequiredException
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws ORMException
+     * @throws OptimisticLockException
+     * @throws TransactionRequiredException
+     * @throws GuzzleException
      */
     public function pay(int $orderId, float $sum, EntityManager $entityManager, YandexClientApi $yandexClient): Response
     {
@@ -116,8 +120,8 @@ class OrdersController extends BaseController
         // в сравении цен, используем технику epsilon, т.к. у нас float
         // @see https://www.php.net/manual/en/language.types.float.php#language.types.float.comparison
         $epsilon = 0.00001;
-        if (abs($sum - $order->calculateSumm()) > $epsilon) {
-            return $this->responseWithFailed("Сумма не соответвует. Ожидалось: `{$order->calculateSumm()}`, передано: {$sum}");
+        if (abs($sum - $order->calculateSum()) > $epsilon) {
+            return $this->responseWithFailed("Сумма не соответвует. Ожидалось: `{$order->calculateSum()}`, передано: {$sum}");
         }
 
         if (!$yandexClient->checkPayed($orderId, $sum)) {

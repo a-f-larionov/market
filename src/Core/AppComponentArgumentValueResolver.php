@@ -2,6 +2,8 @@
 
 namespace App\Core;
 
+use DI\DependencyException;
+use DI\NotFoundException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -17,7 +19,11 @@ class AppComponentArgumentValueResolver implements ArgumentValueResolverInterfac
 
     /**
      * {@inheritdoc}
+     * @param Request $request
+     * @param ArgumentMetadata $argument
      * @return bool
+     * @throws DependencyException
+     * @throws NotFoundException
      */
     public function supports(Request $request, ArgumentMetadata $argument): bool
     {

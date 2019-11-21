@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
 
@@ -30,20 +29,20 @@ class Order
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @var  int статус заказа, по умолчанию Новый
      * @ORM\Column(type="integer")
      */
-    private $status = self::STATUS_NEW;
+    private int $status = self::STATUS_NEW;
 
     /**
      * Позиции заказа
-     * @var OrderItem[]
+     * @var PersistentCollection|OrderItem[]
      * @ORM\OneToMany(targetEntity="\App\Models\OrderItem", mappedBy="order")
      */
-    private $orderItems;
+    private PersistentCollection $orderItems;
 
     /**
      * Order constructor.
@@ -51,7 +50,7 @@ class Order
      */
     public function __construct()
     {
-        $this->orderItems = new ArrayCollection();
+        $this->orderItems = new PersistentCollection;
     }
 
     /**
@@ -65,22 +64,13 @@ class Order
 
     /**
      * Получить статус товара
-     * @see self::STATUS_NEW
-     * @see self::STATUS_PAYED
      * @return int
+     * @see self::STATUS_PAYED
+     * @see self::STATUS_NEW
      */
     public function getStatus(): int
     {
         return $this->status;
-    }
-
-    /**
-     * Установить статус заказаз
-     * @param $status int статус заказа
-     */
-    public function setStatus(int $status): void
-    {
-        $this->status = $status;
     }
 
     /**
@@ -108,7 +98,7 @@ class Order
      * Раситывает сумму заказа.
      * @return float
      */
-    public function calculateSumm(): float
+    public function calculateSum(): float
     {
         $sum = 0;
         $items = $this->getOrderItems();
@@ -122,7 +112,7 @@ class Order
 
     /**
      * Возвращает массив позиций заказа
-     * @return OrderItem[]
+     * @return PersistentCollection|OrderItem[]
      */
     public function getOrderItems(): PersistentCollection
     {

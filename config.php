@@ -5,6 +5,15 @@
  * Многоуровневый массив.
  */
 
+use App\ComponentsProviders\EntityManagerProvider;
+use App\ComponentsProviders\GoodsManagerProvider;
+use App\ComponentsProviders\KernelProvider;
+use App\ComponentsProviders\OrdersManagerProvider;
+use App\ComponentsProviders\RequestProvider;
+use App\ComponentsProviders\RouterProvider;
+use App\ComponentsProviders\TestGoodsProvider;
+use App\ComponentsProviders\YandexClientAPIProvider;
+
 return [
     'entityManager' => [
         'driver' => 'pdo_mysql',
@@ -23,15 +32,15 @@ return [
      * Классы в значении массива, должны реализовать интерфейс ComponentInterface
      */
     'components' => [
-        'router' => \App\ComponentsProviders\RouterProvider::class,
-        'entityManager' => \App\ComponentsProviders\EntityManagerProvider::class,
-        'kernel' => \App\ComponentsProviders\KernelProvider::class,
-        'request' => \App\ComponentsProviders\RequestProvider::class,
+        'router' => RouterProvider::class,
+        'entityManager' => EntityManagerProvider::class,
+        'kernel' => KernelProvider::class,
+        'request' => RequestProvider::class,
 
-        'testGoodsProvider' => \App\ComponentsProviders\TestGoodsProvider::class,
-        'ordersManager' => \App\ComponentsProviders\OrdersManagerProvider::class,
-        'goodsManager' => \App\ComponentsProviders\GoodsManagerProvider::class,
+        'testGoodsProvider' => TestGoodsProvider::class,
+        'ordersManager' => OrdersManagerProvider::class,
+        'goodsManager' => GoodsManagerProvider::class,
 
-        'yandexClient' => \App\ComponentsProviders\YandexClientAPIProvider::class,
+        'yandexClient' => YandexClientAPIProvider::class,
     ],
 ];

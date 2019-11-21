@@ -7,23 +7,26 @@
  * 3 - подключаем компоненты.
  */
 
+use App\Core\App;
+use Dotenv\Dotenv;
+
 /**
  * Singleton приложения-контейнера.
  * Тут мы можем получить доступ к компонентам из любой точки кода.
  * app()->get('containerName')->doSomething();
  * @see components.php
- * @return \App\Core\App
+ * @return App
  */
 function app()
 {
-    return \App\Core\App::getInstance();
+    return App::getInstance();
 }
 
 /**
  * Подключаем пакет PHPDotEnv
  * @see https://github.com/vlucas/phpdotenv
  */
-$dotenv = \Dotenv\Dotenv::create(__DIR__);
+$dotenv = Dotenv::create(__DIR__);
 $dotenv->load();
 
 /**

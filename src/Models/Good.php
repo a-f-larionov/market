@@ -18,19 +18,19 @@ class Good
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      */
-    private $id;
+    protected ?int $id= null;
 
     /**
      * @var string название товара
      * @ORM\Column(type="string")
      */
-    private $name;
+    private string $name;
 
     /**
      * @var float цена товара
      * @ORM\Column(type="decimal", precision=10, scale=2)
      */
-    private $price;
+    private float $price;
 
     /**
      * Получить id товара

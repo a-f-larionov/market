@@ -5,6 +5,8 @@ use App\Models\Good;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 
 /**
  * Менеджер заказов.
@@ -31,8 +33,8 @@ class OrdersManager
      * Создать заказ.
      * @param array $goodIds id товаров
      * @return Order
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function createOrder(array $goodIds): Order
     {

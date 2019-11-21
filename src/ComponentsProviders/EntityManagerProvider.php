@@ -4,6 +4,7 @@ namespace App\ComponentsProviders;
 
 use App\Core\AppComponentInterface;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\DBAL\Logging\EchoSQLLogger;
 
@@ -17,7 +18,7 @@ class EntityManagerProvider implements AppComponentInterface
      * Возвращает настроенный компонент \Doctrine\ORM\EntityManager
      * @see https://www.doctrine-project.org/projects/doctrine-orm/en/current/tutorials/getting-started.html
      * @return EntityManager
-     * @throws \Doctrine\ORM\ORMException
+     * @throws ORMException
      */
     static public function getComponent(): EntityManager
     {

@@ -19,33 +19,33 @@ class OrderItem
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @var int id заказа.
      * @ORM\Column(type="integer")
      */
-    private $orderId;
+    private int $orderId;
 
     /**
      * @var Order Заказ
      * @ORM\ManyToOne(targetEntity="App\Models\Order", inversedBy="orderItems")
      * @ORM\JoinColumn(name="orderId", referencedColumnName="id")
      */
-    private $order;
+    private Order $order;
 
     /**
      * @var int id товара
      * @ORM\Column(type="integer")
      */
-    protected $goodId;
+    protected int $goodId;
 
     /**
      * @var Good Товар
      * @ORM\ManyToOne(targetEntity="App\Models\Good")
      * @ORM\JoinColumn(name="goodId", referencedColumnName="id")
      */
-    private $good;
+    private Good $good;
 
     /**
      * Получить id позиции товара

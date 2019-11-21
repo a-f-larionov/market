@@ -4,6 +4,8 @@ namespace App\ComponentsProviders;
 
 use App\Core\AppComponentInterface;
 use App\Managers\GoodsManager;
+use DI\DependencyException;
+use DI\NotFoundException;
 
 /**
  * Создает компонент менеджер заказов.
@@ -15,6 +17,8 @@ class GoodsManagerProvider implements AppComponentInterface
     /**
      * Создает компонент менеджер заказов.
      * @return GoodsManager
+     * @throws DependencyException
+     * @throws NotFoundException
      */
     static public function getComponent(): GoodsManager
     {

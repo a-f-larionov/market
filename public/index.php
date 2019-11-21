@@ -1,6 +1,7 @@
 <?php
 
-use \Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\HttpKernel;
 
 /**
  * Этот файл - точка входа.
@@ -22,7 +23,7 @@ require_once __DIR__ . '/../bootstrap.php';
  *  Затем отправим ответ клиенту.
  */
 
-/** @var \Symfony\Component\HttpKernel\HttpKernel $kernel */
+/** @var HttpKernel $kernel */
 $kernel = app()->get('kernel');
 
 $request = Request::createFromGlobals();

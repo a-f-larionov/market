@@ -2,12 +2,13 @@
 
 use \App\Controllers\GoodsController;
 use \App\Controllers\OrdersController;
+use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 /**
  * В этом файле описаны роутинги.
  * @see https://symfony.com/doc/current/components/routing.html
  */
-return function (\Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator $routes) {
+return function (RoutingConfigurator $routes) {
 
     $routes->add('/goods/create-test-pack', '/goods/create-test-pack')
         ->controller([GoodsController::class, 'createTestPack']);

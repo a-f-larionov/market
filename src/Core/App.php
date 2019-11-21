@@ -20,7 +20,7 @@ class App extends Container
      * Экземпляр приложения.
      * @var App
      */
-    private static $instance;
+    private static App $instance;
 
     /**
      * Получить экземпляр приложения

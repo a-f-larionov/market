@@ -4,6 +4,8 @@ namespace App\Managers;
 
 use App\Models\Good;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 
 class GoodsManager
 {
@@ -26,8 +28,8 @@ class GoodsManager
      * @param string $name название товара
      * @param float $price цена товара
      * @return Good
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function create(string $name, float $price): Good
     {
