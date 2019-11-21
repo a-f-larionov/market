@@ -14,8 +14,8 @@ use Dotenv\Dotenv;
  * Singleton приложения-контейнера.
  * Тут мы можем получить доступ к компонентам из любой точки кода.
  * app()->get('containerName')->doSomething();
- * @see components.php
  * @return App
+ * @see components.php
  */
 function app()
 {
@@ -32,7 +32,7 @@ $dotenv->load();
 /**
  * Простейшая версия конфигурации.
  * @param null|string $name
- * @return mixed|null
+ * @return mixed|null|array
  */
 function config(string $name = null)
 {
@@ -40,7 +40,11 @@ function config(string $name = null)
     if (!$config) {
         $config = require __DIR__ . '/config.php';
     }
-    return $name ? $config[$name] ?? null : $config;
+    if ($name) {
+        return $config[$name] ?? null;
+    } else {
+        return $config;
+    }
 }
 
 /**
