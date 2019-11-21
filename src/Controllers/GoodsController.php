@@ -6,6 +6,8 @@ use App\ComponentsProviders\TestGoodsProvider;
 use App\Managers\GoodsManager;
 use App\Models\Good;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -30,6 +32,8 @@ class  GoodsController extends BaseController
      * @param GoodsManager $goodsManager
      * @param TestGoodsProvider $testDataProvider
      * @return Response
+     * @throws ORMException
+     * @throws OptimisticLockException
      */
     public function createTestPack(
         GoodsManager $goodsManager,

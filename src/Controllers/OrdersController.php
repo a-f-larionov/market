@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Api\YaRu\YandexClientApi;
 use App\Managers\OrdersManager;
-use App\Models\Good;
 use App\Models\Order;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\OptimisticLockException;
@@ -13,6 +12,7 @@ use Doctrine\ORM\TransactionRequiredException;
 use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Throwable;
 
 /**
  * Контроллер заказов.
@@ -24,25 +24,23 @@ class OrdersController extends BaseController
     /**
      * Создает заказ
      * @param Request $request
-     * @param EntityManager $entityManager
      * @param OrdersManager $ordersManager
      * @return Response
-     * @throws ORMException
-     * @throws OptimisticLockException
+     * @throws Throwable
      */
-    public function create(Request $request, EntityManager $entityManager, OrdersManager $ordersManager): Response
+    public function create(Request $request, OrdersManager $ordersManager): Response
     {
         /** @var int[] id запрашиваемых товаров $requestIds */
-        $requestIds = $request->get('ids');
+        $goodIds = $request->get('ids');
 
         // далее идет код валидации запроса
-        if (!$requestIds || !is_string($requestIds)) {
+        if (!$goodIds || !is_string($goodIds)) {
             return $this->responseWithFailed("Параметр `ids` нужно передать.");
         }
 
         // получим массив только чисел.
-        $requestIds = array_reduce(
-            explode(',', $requestIds),
+        $goodIds = array_reduce(
+            explode(',', $goodIds),
             function ($carry, $item) {
                 if (ctype_digit($item)) {
                     $carry[] = (int)$item;
@@ -52,35 +50,12 @@ class OrdersController extends BaseController
             []
         );
 
-        if (!is_array($requestIds) || count($requestIds) == 0) {
+        if (!is_array($goodIds) || count($goodIds) == 0) {
             return $this->responseWithFailed("Параметр `ids` нужно передать.");
         }
 
-        $entityManager->beginTransaction();
-
-        $goodsRepository = $entityManager->getRepository(Good::class);
-        /** @var Good[] $goods */
-        $goods = $goodsRepository->findById($requestIds);
-
-        /** @var int[] id товаров существующих в БД $foundIds */
-        $foundIds = array_map(function (Good $good) {
-            return $good->getId();
-        }, $goods);
-
-        /** @var int[] id товаров, которые запрашивали но в бд не найдены $notFoundIds */
-        $notFoundIds = array_diff($requestIds, $foundIds);
-
-        if (count($notFoundIds) > 0) {
-            return $this->responseWithFailed("Запрашиваемые товары с ids = `" . join(',',
-                    $notFoundIds) . "` не найдены.");
-        }
-
         // валидация пройдена, можно создавать заказ.
-        $order = $ordersManager->createOrder($foundIds);
-
-        $entityManager->flush();
-
-        $entityManager->commit();
+        $order = $ordersManager->createOrder($goodIds);
 
         return $this->responseJSON($order->mapToArray());
     }
