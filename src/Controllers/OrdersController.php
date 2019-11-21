@@ -34,9 +34,16 @@ class OrdersController extends BaseController
         }
 
         // получим массив только чисел.
-        $requestIds = explode(',', $requestIds);
-        $requestIds = array_filter($requestIds, "intval");
-        $requestIds = array_unique($requestIds);
+        $requestIds = array_reduce(
+            explode(',', $requestIds),
+            function ($carry, $item) {
+                if (ctype_digit($item)) {
+                    $carry[] = (int)$item;
+                }
+                return $carry;
+            },
+            []
+        );
 
         if (!is_array($requestIds) || count($requestIds) == 0) {
             return $this->responseWithFailed("Параметр `ids` нужно передать.");
@@ -78,6 +85,9 @@ class OrdersController extends BaseController
      * @param EntityManager $entityManager
      * @param YandexClientApi $yandexClient
      * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
+     * @throws \Doctrine\ORM\TransactionRequiredException
      */
     public function pay(int $orderId, float $sum, EntityManager $entityManager, YandexClientApi $yandexClient): Response
     {

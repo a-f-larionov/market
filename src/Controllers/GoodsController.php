@@ -23,19 +23,17 @@ class  GoodsController extends BaseController
     /**
      * Размер тестового пака товара.
      */
-    private const  TEST_PACK_SIZE = 20;
+    private const TEST_PACK_SIZE = 20;
 
     /**
      * Создает self::TEST_PACK_SIZE тестовых товаров со случайными названиями и ценами.
      * @param GoodsManager $goodsManager
      * @param TestGoodsProvider $testDataProvider
-     * @param EntityManager $entityManager
      * @return Response
      */
     public function createTestPack(
         GoodsManager $goodsManager,
-        TestGoodsProvider $testDataProvider,
-        EntityManager $entityManager
+        TestGoodsProvider $testDataProvider
     ): Response {
 
         for ($i = 0; $i < self::TEST_PACK_SIZE; $i++) {
@@ -67,9 +65,7 @@ class  GoodsController extends BaseController
         $repository = $entityManager->getRepository(Good::class);
         $all = $repository->findBy([], null, self::GOODS_LIST_PAGE_SIZE, $offset);
 
-        $all = array_map(function (Good $item) {
-            return $item->mapToArray();
-        }, $all);
+        $all = array_map(fn (Good $good) => $good->mapToArray(), $all);
 
         return $this->responseJSON($all);
     }
