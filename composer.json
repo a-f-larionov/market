@@ -12,7 +12,8 @@
     "guzzlehttp/guzzle": "^6.4",
     "vlucas/phpdotenv": "^3.6",
     "symfony/var-dumper": "^4.3",
-    "symfony/http-kernel": "^4.3"
+    "symfony/http-kernel": "^4.3",
+    "mbezhanov/faker-provider-collection": "^1.2"
   },
   "license": "MIT",
   "authors": [

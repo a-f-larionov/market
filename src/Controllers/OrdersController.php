@@ -21,7 +21,10 @@ class OrdersController extends BaseController
      * Создает заказ
      * @param Request $request
      * @param EntityManager $entityManager
+     * @param OrdersManager $ordersManager
      * @return Response
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
     public function create(Request $request, EntityManager $entityManager, OrdersManager $ordersManager): Response
     {
