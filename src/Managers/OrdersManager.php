@@ -5,6 +5,7 @@ namespace App\Managers;
 use App\Models\Good;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Repositories\GoodsRepository;
 use Doctrine\ORM\EntityManager;
 use Throwable;
 use App\Exceptions\UserRequestErrorException;
@@ -22,11 +23,18 @@ class OrdersManager
     private EntityManager $entityManager;
 
     /**
+     * @var GoodsRepository
+     */
+    private GoodsRepository $goodsRepository;
+
+    /**
      * OrdersManager constructor.
      * @param EntityManager $entityManager
+     * @param GoodsRepository $goodsRepository
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManager $entityManager, GoodsRepository $goodsRepository)
     {
+        $this->goodsRepository = $goodsRepository;
         $this->entityManager = $entityManager;
     }
 
@@ -46,10 +54,8 @@ class OrdersManager
             $this->entityManager->persist($order);
             $this->entityManager->flush();
 
-            $goodsRepository = $this->entityManager->getRepository(Good::class);
-
             /** @var Good[] $goods */
-            $goods = $goodsRepository->findById($goodIds);
+            $goods = $this->goodsRepository->findById($goodIds);
 
             /** @var int[] id товаров существующих в БД $foundIds */
             $foundIds = array_map(fn (Good $good): int => $good->getId(), $goods);

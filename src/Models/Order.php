@@ -42,7 +42,7 @@ class Order
     /**
      * Позиции заказа
      * @var Collection|OrderItem[]
-     * @ORM\OneToMany(targetEntity="\App\Models\OrderItem", mappedBy="order")
+     * @ORM\OneToMany(targetEntity="OrderItem", mappedBy="order")
      */
     private ?Collection $orderItems = null;
 

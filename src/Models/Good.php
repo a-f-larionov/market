@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Модель товаров.
  * Class Good
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repositories\GoodsRepository")
  * @ORM\Table(name="goods")
  */
 class Good
@@ -18,7 +18,7 @@ class Good
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue
      */
-    protected ?int $id= null;
+    protected ?int $id = null;
 
     /**
      * @var string название товара

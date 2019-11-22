@@ -29,7 +29,7 @@ class OrderItem
 
     /**
      * @var Order Заказ
-     * @ORM\ManyToOne(targetEntity="App\Models\Order", inversedBy="orderItems")
+     * @ORM\ManyToOne(targetEntity="Order", inversedBy="orderItems")
      * @ORM\JoinColumn(name="orderId", referencedColumnName="id")
      */
     private Order $order;
@@ -42,7 +42,7 @@ class OrderItem
 
     /**
      * @var Good Товар
-     * @ORM\ManyToOne(targetEntity="App\Models\Good")
+     * @ORM\ManyToOne(targetEntity="Good")
      * @ORM\JoinColumn(name="goodId", referencedColumnName="id")
      */
     private Good $good;
