@@ -2,20 +2,20 @@
 
 namespace App\Repositories;
 
-use App\Models\Good;
+use App\Models\Order;
 use DI\DependencyException;
 use DI\NotFoundException;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Class GoodsRepository
+ * Class OrdersRepository
  * @package App\Repositories
  */
-class GoodsRepository extends EntityRepository
+class OrdersRepository extends EntityRepository
 {
     /**
-     * GoodsRepository constructor.
+     * OrdersRepository constructor.
      * @throws DependencyException
      * @throws NotFoundException
      */
@@ -23,7 +23,7 @@ class GoodsRepository extends EntityRepository
     {
         /** @var EntityManager $em */
         $em = app()->get('entityManager');
-        $class = $em->getClassMetadata(Good::class);
+        $class = $em->getClassMetadata(Order::class);
 
         parent::__construct($em, $class);
     }

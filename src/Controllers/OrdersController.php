@@ -3,8 +3,10 @@
 namespace App\Controllers;
 
 use App\Api\YaRu\YandexClientApi;
+use App\Exceptions\UserRequestErrorException;
 use App\Managers\OrdersManager;
 use App\Models\Order;
+use Doctrine\DBAL\LockMode;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -71,6 +73,7 @@ class OrdersController extends BaseController
      * @throws OptimisticLockException
      * @throws TransactionRequiredException
      * @throws GuzzleException
+     * @throws UserRequestErrorException
      */
     public function pay(int $orderId, float $sum, EntityManager $entityManager, YandexClientApi $yandexClient): Response
     {
@@ -78,34 +81,45 @@ class OrdersController extends BaseController
             return $this->responseWithFailed("Нужно передать `id`");
         }
 
-        /** @var Order $order Заказ */
-        $order = $entityManager->find(Order::class, $orderId);
+        try {
+            $entityManager->beginTransaction();
 
-        if (!$order) {
-            return $this->responseWithFailed("Нет заказа с `id`=`{$orderId}`");
+            /** @var Order $order Заказ */
+            $order = $entityManager->find(Order::class, $orderId, LockMode::PESSIMISTIC_WRITE);
+
+            if (!$order) {
+                return $this->responseWithFailed("Нет заказа с `id`=`{$orderId}`");
+            }
+
+            if (!$order->isNew()) {
+                return $this->responseWithFailed("Заказ не в статусе Новый. Нельзя оплатить.");
+            }
+
+            if (!$order->getOrderItems()->count()) {
+                return $this->responseWithFailed("Заказ пуст.");
+            }
+            // в сравении цен, используем технику epsilon, т.к. у нас float
+            // @see https://www.php.net/manual/en/language.types.float.php#language.types.float.comparison
+            $epsilon = 0.00001;
+            if (abs($sum - $order->calculateSum()) > $epsilon) {
+                return $this->responseWithFailed("Сумма не соответвует. Ожидалось: `{$order->calculateSum()}`, передано: {$sum}");
+            }
+
+            if (!$yandexClient->checkPayed($orderId, $sum)) {
+                return $this->responseWithFailed("YaRu отказал в проведении платежа. Попробуйте позже.");
+            }
+
+            $order->setStatusPayed();
+
+            $entityManager->flush();
+
+            $entityManager->commit();
+
+        } catch (OptimisticLockException $e) {
+
+            $entityManager->rollback();
+            throw new UserRequestErrorException("Кто то уже начал оплату этого заказа.");
         }
-
-        if (!$order->isNew()) {
-            return $this->responseWithFailed("Заказ не в статусе Новый. Нельзя оплатить.");
-        }
-
-        if (!$order->getOrderItems()->count()) {
-            return $this->responseWithFailed("Заказ пуст.");
-        }
-        // в сравении цен, используем технику epsilon, т.к. у нас float
-        // @see https://www.php.net/manual/en/language.types.float.php#language.types.float.comparison
-        $epsilon = 0.00001;
-        if (abs($sum - $order->calculateSum()) > $epsilon) {
-            return $this->responseWithFailed("Сумма не соответвует. Ожидалось: `{$order->calculateSum()}`, передано: {$sum}");
-        }
-
-        if (!$yandexClient->checkPayed($orderId, $sum)) {
-            return $this->responseWithFailed("YaRu отказал в проведении платежа. Попробуйте позже.");
-        }
-
-        $order->setStatusPayed();
-
-        $entityManager->flush();
 
         return $this->responseWithSuccess("Оплачено");
     }

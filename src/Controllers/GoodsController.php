@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\ComponentsProviders\TestGoodsProvider;
 use App\Managers\GoodsManager;
 use App\Models\Good;
-use Doctrine\ORM\EntityManager;
+use App\Repositories\GoodsRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Symfony\Component\HttpFoundation\Response;
@@ -54,10 +54,10 @@ class  GoodsController extends BaseController
     /**
      * Возвращает список всех товаров.
      * @param int $page номер страницы, начиная с 1-цы
-     * @param EntityManager $entityManager
+     * @param GoodsRepository $goodsRepository
      * @return Response
      */
-    public function listAll(int $page, EntityManager $entityManager): Response
+    public function listAll(int $page, GoodsRepository $goodsRepository): Response
     {
         if ($page < 1) {
             return $this->responseWithFailed("Укажите page.");
@@ -66,8 +66,7 @@ class  GoodsController extends BaseController
         $page--;
         $offset = $page * (self::GOODS_LIST_PAGE_SIZE);
 
-        $repository = $entityManager->getRepository(Good::class);
-        $all = $repository->findBy([], null, self::GOODS_LIST_PAGE_SIZE, $offset);
+        $all = $goodsRepository->findBy([], null, self::GOODS_LIST_PAGE_SIZE, $offset);
 
         $all = array_map(fn (Good $good) => $good->mapToArray(), $all);
 
