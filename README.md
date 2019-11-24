@@ -18,10 +18,10 @@
 
 ## Ссылки на 4 реализованных метода:
 
-- создание тестовых товаров: [goods/create-test-pack](http://8ffd246e-5d74-49a5-8696-e92eff606a60.pub.cloud.scaleway.com/goods/create-test-pack)
-- вывести товары: [goods/list-all/1](http://8ffd246e-5d74-49a5-8696-e92eff606a60.pub.cloud.scaleway.com/goods/list-all/1)
-- создать заказ:  [orders/create?ids=1,2,3](http://8ffd246e-5d74-49a5-8696-e92eff606a60.pub.cloud.scaleway.com/orders/create?ids=1,2,3)
-- оплатить заказ: [orders/pay/1/123.45](http://8ffd246e-5d74-49a5-8696-e92eff606a60.pub.cloud.scaleway.com/orders/pay/1/123.45)
+- создание тестовых товаров: [goods/create-test-pack](http://8ffd246e-5d74-49a5-8696-e92eff606a60.pub.cloud.scaleway.com/market/goods/create-test-pack)
+- вывести товары: [goods/list-all/1](http://8ffd246e-5d74-49a5-8696-e92eff606a60.pub.cloud.scaleway.com/market/goods/list-all/1)
+- создать заказ:  [orders/create?ids=1,2,3](http://8ffd246e-5d74-49a5-8696-e92eff606a60.pub.cloud.scaleway.com/market/orders/create?ids=1,2,3)
+- оплатить заказ: [orders/pay/1/123.45](http://8ffd246e-5d74-49a5-8696-e92eff606a60.pub.cloud.scaleway.com/market/orders/pay/1/123.45)
 
 
 ## Описание:
