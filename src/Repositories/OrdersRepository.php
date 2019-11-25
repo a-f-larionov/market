@@ -6,6 +6,7 @@ use App\Models\Order;
 use DI\DependencyException;
 use DI\NotFoundException;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -19,12 +20,10 @@ class OrdersRepository extends EntityRepository
      * @throws DependencyException
      * @throws NotFoundException
      */
-    public function __construct()
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        /** @var EntityManager $em */
-        $em = app()->get('entityManager');
-        $class = $em->getClassMetadata(Order::class);
+        $class = $entityManager->getClassMetadata(Order::class);
 
-        parent::__construct($em, $class);
+        parent::__construct($entityManager, $class);
     }
 }

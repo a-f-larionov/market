@@ -7,12 +7,12 @@ use GuzzleHttp\Exception\GuzzleException;
 use function GuzzleHttp\Psr7\build_query;
 
 /**
- * Клиент платежной системы YaRu.
+ * Клиент платежной системы Yandex.
  * Это псевдосистема, если https://ya.ru ответил 200 - платеж считается проведенным.
  * Class Client
- * @package App\Api\YaRu
+ * @package App\Api\Yandex
  */
-class YandexClientApi
+class YandexClientApi2
 {
     /**
      * @var Client

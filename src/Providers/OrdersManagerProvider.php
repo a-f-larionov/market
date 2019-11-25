@@ -1,27 +1,27 @@
 <?php
 
-namespace App\ComponentsProviders;
+namespace App\Providers;
 
-use App\Core\AppComponentInterface;
+use App\Providers\Interfaces\ProviderInterface;
 use App\Managers\OrdersManager;
 use DI\DependencyException;
 use DI\NotFoundException;
+use Psr\Container\ContainerInterface;
 
 /**
  * Создает компонент менеджер заказов.
  * Class OrdersManagerProvider
  * @package App\Components
  */
-class OrdersManagerProvider implements AppComponentInterface
+class OrdersManagerProvider implements ProviderInterface
 {
     /**
      * Создает компонент менеджер заказов.
+     * @param ContainerInterface $container
      * @return OrdersManager
-     * @throws DependencyException
-     * @throws NotFoundException
      */
-    static public function getComponent(): OrdersManager
+    static public function create(ContainerInterface $container): OrdersManager
     {
-        return app()->make(OrdersManager::class);
+        return $container->make(OrdersManager::class);
     }
 }

@@ -27,15 +27,13 @@
 ## Описание:
 
 Простой фреймворк с применением шаблонов:
-MVC, Singleton, Repository, Entity, Controller, Dependency Injection, Router.
+MVC, Repository, Entity, Controller, Dependency Injection, Router.
 
-Lifecycle:
-- точка входа public/index.php;
-- подключается автозагрузчик от композера;
-- определяется функцию config(), предоставляющая доступ к конфигурационному файлу config.php;
-- определяется функцию app(), предоставляющая доступ к компонентам, например app()->get('compnentName');
-- загружается компоненты указанные в config.php ['components'];
-- выполняется обработка запроса согласно роутингу.
+### Life Cycle:
+
+- entry point /public/index.php;
+- добавление зависимостей указанных в переменной providers массива файла конфигурации config.php;
+- обработка роутинга на основе файла routes.php;
 
 
 Что нужно было бы сделать, если это не тестовое задание:

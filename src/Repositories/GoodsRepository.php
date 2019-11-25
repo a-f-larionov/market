@@ -5,7 +5,7 @@ namespace App\Repositories;
 use App\Models\Good;
 use DI\DependencyException;
 use DI\NotFoundException;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 
 /**
@@ -19,12 +19,10 @@ class GoodsRepository extends EntityRepository
      * @throws DependencyException
      * @throws NotFoundException
      */
-    public function __construct()
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        /** @var EntityManager $em */
-        $em = app()->get('entityManager');
-        $class = $em->getClassMetadata(Good::class);
+        $class = $entityManager->getClassMetadata(Good::class);
 
-        parent::__construct($em, $class);
+        parent::__construct($entityManager, $class);
     }
 }

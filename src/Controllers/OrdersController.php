@@ -2,14 +2,17 @@
 
 namespace App\Controllers;
 
-use App\Api\YaRu\YandexClientApi;
+use App\Api\Yandex\YandexClientAPI;
 use App\Exceptions\UserRequestErrorException;
+use App\Managers\Interfaces\OrdersManagerInterface;
 use App\Managers\OrdersManager;
 use App\Models\Order;
 use Doctrine\DBAL\LockMode;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
+use Doctrine\ORM\PessimisticLockException;
 use Doctrine\ORM\TransactionRequiredException;
 use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +33,7 @@ class OrdersController extends BaseController
      * @return Response
      * @throws Throwable
      */
-    public function create(Request $request, OrdersManager $ordersManager): Response
+    public function create(Request $request, OrdersManagerInterface $ordersManager): Response
     {
         /** @var int[] id запрашиваемых товаров $requestIds */
         $goodIds = $request->get('ids');
@@ -75,7 +78,7 @@ class OrdersController extends BaseController
      * @throws GuzzleException
      * @throws UserRequestErrorException
      */
-    public function pay(int $orderId, float $sum, EntityManager $entityManager, YandexClientApi $yandexClient): Response
+    public function pay(int $orderId, float $sum, EntityManagerInterface $entityManager, YandexClientAPI $api): Response
     {
         if ($orderId < 1) {
             return $this->responseWithFailed("Нужно передать `id`");
@@ -105,8 +108,8 @@ class OrdersController extends BaseController
                 return $this->responseWithFailed("Сумма не соответвует. Ожидалось: `{$order->calculateSum()}`, передано: {$sum}");
             }
 
-            if (!$yandexClient->checkPayed($orderId, $sum)) {
-                return $this->responseWithFailed("YaRu отказал в проведении платежа. Попробуйте позже.");
+            if (!$api->checkPayed($orderId, $sum)) {
+                return $this->responseWithFailed("Yandex отказал в проведении платежа. Попробуйте позже.");
             }
 
             $order->setStatusPayed();
@@ -115,7 +118,7 @@ class OrdersController extends BaseController
 
             $entityManager->commit();
 
-        } catch (OptimisticLockException $e) {
+        } catch (PessimisticLockException $e) {
 
             $entityManager->rollback();
             throw new UserRequestErrorException("Кто то уже начал оплату этого заказа.");

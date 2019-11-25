@@ -1,18 +1,19 @@
 <?php
 
-namespace App\ComponentsProviders;
+namespace App\Providers;
 
-use App\Core\AppComponentInterface;
+use App\Providers\Interfaces\ProviderInterface;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Tools\Setup;
 use Doctrine\DBAL\Logging\EchoSQLLogger;
+use Psr\Container\ContainerInterface;
 
 /**
  * Создает компонент EntityManager
  * Class EntityManagerProvider
  */
-class EntityManagerProvider implements AppComponentInterface
+class EntityManagerProvider implements ProviderInterface
 {
     /**
      * Возвращает настроенный компонент \Doctrine\ORM\EntityManager
@@ -20,7 +21,7 @@ class EntityManagerProvider implements AppComponentInterface
      * @return EntityManager
      * @throws ORMException
      */
-    static public function getComponent(): EntityManager
+    static public function create(ContainerInterface $container): EntityManager
     {
         // Создадим простоую Doctrine ORM конфигурацию для анатаций.
         $isDevMode = true;

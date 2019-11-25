@@ -5,14 +5,17 @@
  * Многоуровневый массив.
  */
 
-use App\ComponentsProviders\EntityManagerProvider;
-use App\ComponentsProviders\GoodsManagerProvider;
-use App\ComponentsProviders\KernelProvider;
-use App\ComponentsProviders\OrdersManagerProvider;
-use App\ComponentsProviders\RequestProvider;
-use App\ComponentsProviders\RouterProvider;
-use App\ComponentsProviders\TestGoodsProvider;
-use App\ComponentsProviders\YandexClientAPIProvider;
+use App\Api\YaRu\YandexClientApi;
+use App\Managers\Interfaces\GoodsManagerInterface;
+use App\Managers\Interfaces\OrdersManagerInterface;
+use App\Providers\EntityManagerProvider;
+use App\Providers\GoodsManagerProvider;
+use App\Providers\OrdersManagerProvider;
+use App\Providers\RouterProvider;
+use App\Providers\GoodsTestDataProviderProvider;
+use App\TestDataProviders\Interfaces\GoodsTestDataProviderInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Routing\RouterInterface;
 
 return [
     'entityManager' => [
@@ -25,22 +28,15 @@ return [
     ],
 
     /**
-     * Компоненты приложения
-     * Все они будут доступны из любой части кода так:
-     * app()->get('router')
-     * app()->get(\Symfony\Component\Routing\Router:class);
-     * Классы в значении массива, должны реализовать интерфейс ComponentInterface
+     * Провайдеры сервисов\компонент приложения
      */
-    'components' => [
-        'router' => RouterProvider::class,
-        'entityManager' => EntityManagerProvider::class,
-        'kernel' => KernelProvider::class,
-        'request' => RequestProvider::class,
+    'providers' => [
+        RouterInterface::class => RouterProvider::class,
+        EntityManagerInterface::class => EntityManagerProvider::class,
 
-        'testGoodsProvider' => TestGoodsProvider::class,
-        'ordersManager' => OrdersManagerProvider::class,
-        'goodsManager' => GoodsManagerProvider::class,
+        GoodsTestDataProviderInterface::class => GoodsTestDataProviderProvider::class,
 
-        'yandexClient' => YandexClientAPIProvider::class,
+        OrdersManagerInterface::class => OrdersManagerProvider::class,
+        GoodsManagerInterface::class => GoodsManagerProvider::class,
     ],
 ];

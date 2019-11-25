@@ -2,11 +2,13 @@
 
 namespace App\Managers;
 
+use App\Managers\Interfaces\OrdersManagerInterface;
 use App\Models\Good;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Repositories\GoodsRepository;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Throwable;
 use App\Exceptions\UserRequestErrorException;
 
@@ -15,7 +17,7 @@ use App\Exceptions\UserRequestErrorException;
  * Class OrdersManager
  * @package App\Managers
  */
-class OrdersManager
+class OrdersManager implements OrdersManagerInterface
 {
     /**
      * @var EntityManager
@@ -32,7 +34,7 @@ class OrdersManager
      * @param EntityManager $entityManager
      * @param GoodsRepository $goodsRepository
      */
-    public function __construct(EntityManager $entityManager, GoodsRepository $goodsRepository)
+    public function __construct(EntityManagerInterface $entityManager, GoodsRepository $goodsRepository)
     {
         $this->goodsRepository = $goodsRepository;
         $this->entityManager = $entityManager;

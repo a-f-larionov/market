@@ -2,12 +2,18 @@
 
 namespace App\Managers;
 
+use App\Managers\Interfaces\GoodsManagerInterface;
 use App\Models\Good;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 
-class GoodsManager
+/**
+ * Class GoodsManager
+ * @package App\Managers
+ */
+class GoodsManager implements GoodsManagerInterface
 {
     /**
      * @var EntityManager
@@ -18,7 +24,7 @@ class GoodsManager
      * GoodsManager constructor.
      * @param EntityManager $entityManager
      */
-    public function __construct(EntityManager $entityManager)
+    public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
     }

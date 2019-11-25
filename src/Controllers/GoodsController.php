@@ -2,10 +2,12 @@
 
 namespace App\Controllers;
 
-use App\ComponentsProviders\TestGoodsProvider;
 use App\Managers\GoodsManager;
+use App\Managers\Interfaces\GoodsManagerInterface;
 use App\Models\Good;
+use App\Providers\GoodsTestDataProviderProvider;
 use App\Repositories\GoodsRepository;
+use App\TestDataProviders\Interfaces\GoodsTestDataProviderInterface;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,14 +32,14 @@ class  GoodsController extends BaseController
     /**
      * Создает self::TEST_PACK_SIZE тестовых товаров со случайными названиями и ценами.
      * @param GoodsManager $goodsManager
-     * @param TestGoodsProvider $testDataProvider
+     * @param GoodsTestDataProviderProvider $testDataProvider
      * @return Response
      * @throws ORMException
      * @throws OptimisticLockException
      */
     public function createTestPack(
-        GoodsManager $goodsManager,
-        TestGoodsProvider $testDataProvider
+        GoodsManagerInterface $goodsManager,
+        GoodsTestDataProviderInterface $testDataProvider
     ): Response {
 
         for ($i = 0; $i < self::TEST_PACK_SIZE; $i++) {

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\ComponentsProviders;
+namespace App\TestDataProviders;
 
-use App\Core\AppComponentInterface;
+
+use App\TestDataProviders\Interfaces\GoodsTestDataProviderInterface;
 use Bezhanov\Faker\Provider\Commerce;
 use Faker\Generator;
 
@@ -11,7 +12,7 @@ use Faker\Generator;
  * Class KernelProvider
  * @package App\Components
  */
-class TestGoodsProvider implements AppComponentInterface
+class GoodsTestDataProvider implements GoodsTestDataProviderInterface
 {
     /**
      * @var Commerce
@@ -19,16 +20,7 @@ class TestGoodsProvider implements AppComponentInterface
     private Commerce $faker;
 
     /**
-     * Создает сам себя(провайдер тестовых данных товаров).
-     * @return TestGoodsProvider
-     */
-    static public function getComponent(): TestGoodsProvider
-    {
-        return new self;
-    }
-
-    /**
-     * TestGoodsProvider constructor.
+     * GoodsTestDataProviderProvider constructor.
      */
     public function __construct()
     {
