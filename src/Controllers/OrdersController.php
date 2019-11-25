@@ -29,7 +29,7 @@ class OrdersController extends BaseController
     /**
      * Создает заказ
      * @param Request $request
-     * @param OrdersManager $ordersManager
+     * @param OrdersManagerInterface $ordersManager
      * @return Response
      * @throws Throwable
      */
@@ -69,13 +69,13 @@ class OrdersController extends BaseController
      * Произвести оплату заказа
      * @param int $orderId id заказа
      * @param float $sum сумма, должна соответствоать сумме заказа.
-     * @param EntityManager $entityManager
-     * @param YandexClientApi $yandexClient
+     * @param EntityManagerInterface $entityManager
+     * @param YandexClientAPI $api
      * @return Response
+     * @throws GuzzleException
      * @throws ORMException
      * @throws OptimisticLockException
      * @throws TransactionRequiredException
-     * @throws GuzzleException
      * @throws UserRequestErrorException
      */
     public function pay(int $orderId, float $sum, EntityManagerInterface $entityManager, YandexClientAPI $api): Response

@@ -18,6 +18,7 @@ class EntityManagerProvider implements ProviderInterface
     /**
      * Возвращает настроенный компонент \Doctrine\ORM\EntityManager
      * @see https://www.doctrine-project.org/projects/doctrine-orm/en/current/tutorials/getting-started.html
+     * @param ContainerInterface $container
      * @return EntityManager
      * @throws ORMException
      */

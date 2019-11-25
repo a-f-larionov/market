@@ -4,8 +4,6 @@ namespace App\Providers;
 
 use App\Providers\Interfaces\ProviderInterface;
 use App\Managers\OrdersManager;
-use DI\DependencyException;
-use DI\NotFoundException;
 use Psr\Container\ContainerInterface;
 
 /**

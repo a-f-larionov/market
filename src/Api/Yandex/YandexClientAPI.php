@@ -14,7 +14,6 @@ use function GuzzleHttp\Psr7\build_query;
  */
 class  YandexClientAPI
 {
-
     /**
      * @var Client
      */

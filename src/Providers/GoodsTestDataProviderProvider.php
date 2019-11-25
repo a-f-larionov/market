@@ -15,7 +15,8 @@ class GoodsTestDataProviderProvider implements ProviderInterface
 {
     /**
      * Создает сам себя(провайдер тестовых данных товаров).
-     * @return GoodsTestDataProviderProvider
+     * @param ContainerInterface $container
+     * @return GoodsTestDataProvider
      */
     static public function create(ContainerInterface $container): GoodsTestDataProvider
     {

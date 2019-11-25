@@ -3,9 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Order;
-use DI\DependencyException;
-use DI\NotFoundException;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 
@@ -17,8 +14,7 @@ class OrdersRepository extends EntityRepository
 {
     /**
      * OrdersRepository constructor.
-     * @throws DependencyException
-     * @throws NotFoundException
+     * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
     {

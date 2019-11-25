@@ -4,10 +4,8 @@ namespace App\Managers;
 
 use App\Managers\Interfaces\GoodsManagerInterface;
 use App\Models\Good;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
+
 
 /**
  * Class GoodsManager
@@ -16,13 +14,13 @@ use Doctrine\ORM\ORMException;
 class GoodsManager implements GoodsManagerInterface
 {
     /**
-     * @var EntityManager
+     * @var EntityManagerInterface
      */
-    private EntityManager $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /**
      * GoodsManager constructor.
-     * @param EntityManager $entityManager
+     * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -34,8 +32,6 @@ class GoodsManager implements GoodsManagerInterface
      * @param string $name название товара
      * @param float $price цена товара
      * @return Good
-     * @throws ORMException
-     * @throws OptimisticLockException
      */
     public function create(string $name, float $price): Good
     {

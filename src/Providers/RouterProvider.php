@@ -15,6 +15,7 @@ use Symfony\Component\Routing\Router;
 class RouterProvider implements ProviderInterface
 {
     /**
+     * @param ContainerInterface $container
      * @return Router
      */
     public static function create(ContainerInterface $container): Router

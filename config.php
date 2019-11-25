@@ -5,7 +5,6 @@
  * Многоуровневый массив.
  */
 
-use App\Api\YaRu\YandexClientApi;
 use App\Managers\Interfaces\GoodsManagerInterface;
 use App\Managers\Interfaces\OrdersManagerInterface;
 use App\Providers\EntityManagerProvider;

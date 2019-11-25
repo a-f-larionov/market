@@ -7,7 +7,6 @@ use App\Models\Good;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Repositories\GoodsRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Throwable;
 use App\Exceptions\UserRequestErrorException;
@@ -20,9 +19,9 @@ use App\Exceptions\UserRequestErrorException;
 class OrdersManager implements OrdersManagerInterface
 {
     /**
-     * @var EntityManager
+     * @var EntityManagerInterface
      */
-    private EntityManager $entityManager;
+    private EntityManagerInterface $entityManager;
 
     /**
      * @var GoodsRepository
@@ -31,7 +30,7 @@ class OrdersManager implements OrdersManagerInterface
 
     /**
      * OrdersManager constructor.
-     * @param EntityManager $entityManager
+     * @param EntityManagerInterface $entityManager
      * @param GoodsRepository $goodsRepository
      */
     public function __construct(EntityManagerInterface $entityManager, GoodsRepository $goodsRepository)

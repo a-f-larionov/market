@@ -52,13 +52,12 @@ class App
      * Обработать http-запрос клинета
      * @param Request $request
      * @return Response
-     * @throws Exception
      */
     public function handle(Request $request): Response
     {
-        $this->container->set(Request::class, $request);
-
         try {
+
+            $this->container->set(Request::class, $request);
 
             $params = $this->router->match($request->getPathInfo());
 
@@ -71,6 +70,8 @@ class App
             $response = new Response("", Response::HTTP_NOT_FOUND);
         } catch (UserRequestErrorException $e) {
             $response = new Response($e->getMessage(), Response::HTTP_BAD_REQUEST);
+        } catch (Exception $e) {
+            $response = new Response("Сайт на реконструкции.", Response::HTTP_OK);
         }
 
         return $response;
